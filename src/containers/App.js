@@ -4,6 +4,7 @@ import SearchBox from "../components/SearchBox.js";
 import Scroll from "../components/Scroll.js";
 import { setSearchField, requestRobots } from "../actions.js";
 import "./App.css";
+import { useEffect } from "react";
 
 const mapStateToProps = (state) => {
   return {
@@ -21,7 +22,11 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-const App = ({ searchField, onSearchChange, robots, isPending }) => {
+const App = ({ searchField, onSearchChange, robots, isPending, onRequestRobots }) => {
+
+  useEffect(() => {
+    onRequestRobots()
+  }, [onRequestRobots])
 
   const filteredRobots = robots.filter((robot) => {
     return robot.name.toLowerCase().includes(searchField.toLowerCase());
