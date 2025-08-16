@@ -5,6 +5,7 @@ import Scroll from "../components/Scroll.js";
 import { setSearchField, requestRobots } from "../actions.js";
 import "./App.css";
 import { useEffect } from "react";
+import Header from "../components/Header.js";
 
 const mapStateToProps = (state) => {
   return {
@@ -22,11 +23,16 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-const App = ({ searchField, onSearchChange, robots, isPending, onRequestRobots }) => {
-
+const App = ({
+  searchField,
+  onSearchChange,
+  robots,
+  isPending,
+  onRequestRobots,
+}) => {
   useEffect(() => {
-    onRequestRobots()
-  }, [onRequestRobots])
+    onRequestRobots();
+  }, [onRequestRobots]);
 
   const filteredRobots = robots.filter((robot) => {
     return robot.name.toLowerCase().includes(searchField.toLowerCase());
@@ -36,7 +42,7 @@ const App = ({ searchField, onSearchChange, robots, isPending, onRequestRobots }
     <h1>Loading</h1>
   ) : (
     <div className="tc">
-      <h1 className="f1">RoboFriends</h1>
+      <Header />
       <SearchBox searchChange={onSearchChange} />
       <Scroll>
         <CardList robots={filteredRobots} />
